@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+.at-body {
+	-ms-overflow-style: none !important; /* IE and Edge */
+	scrollbar-width: none !important; /* Firefox */
+}
+
+.col-12 {
+	display : none;
+}
+.at-body::-webkit-scrollbar {
+	display: none !important; /* Chrome, Safari, Opera*/
+}
+
+.at-footer {
+	display: none !important;
+}
+
+.findIdForm {
+	position: absolute !important;
+	width: 300px !important;
+	height: 400px !important;
+	padding: 30px, 20px !important;
+	background-color: #FFFFFF !important;
+	text-align: center !important;
+	margin-top: 60px;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	border-radius: 15px !important;
+	-ms-overflow-style: none !important; /* IE and Edge */
+	scrollbar-width: none !important; /* Firefox */
+	font-size: 20px;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	border-radius: 15px !important;
+	-ms-overflow-style: none !important;
+}
+
+.findPwdForm {
+	position: absolute !important;
+	width: 300px !important;
+	height: 400px !important;
+	padding: 30px, 20px !important;
+	background-color: #FFFFFF !important;
+	text-align: center !important;
+	margin-top: 60px;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	border-radius: 15px !important;
+	-ms-overflow-style: none !important; /* IE and Edge */
+	scrollbar-width: none !important; /* Firefox */
+	font-size: 20px;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	border-radius: 15px !important;
+	-ms-overflow-style: none !important;
+}
+
+.col-12 {
+	margin: 0px auto;
+}
+
+@media all and (max-height:900px) {
+	.findIdForm {
+		margin-top: 270px;
+	}
+}
+
+@media all and (max-height:750px) {
+	.findIdForm {
+		margin-top: 220px;
+	}
+}
+
+@media all and (max-height:670px) {
+	.findIdForm {
+		margin-top: 170px;
+	}
+	.login_title {
+		font-size: 30px;
+	}
+	.id {
+		font-size: 16px;
+	}
+	.pw {
+		font-size: 16px;
+	}
+	.btnlogin {
+		font-size: 14px;
+	}
+}
+
+@media all and (max-width:991px) {
+	.findIdForm {
+		margin-top: 60px;
+	}
+}
+
+@media all and (max-width:420px) {
+	.findIdForm {
+		margin-top: 10px;
+	}
+}
+
+.findIdForm::-webkit-scrollbar {
+	display: none !important; /* Chrome, Safari, Opera*/
+}
+
+.login_title {
+	text-align: center;
+	margin: 30px;
+	font-family: "Noto Sans KR", sans-serif;
+	font-size: 30px;
+	font-weight: 500;
+	line-height: 1.1;
+	color: inherit;
+}
+
+.nmForm {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	padding: 10px 10px;
+}
+
+.phoneForm {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	padding: 10px 10px;
+}
+
+.idForm {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	padding: 10px 10px;
+}
+
+.id {
+	width: 100%;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+	height: 25px;
+	background: none;
+}
+
+.name {
+	width: 100%;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+	height: 25px;
+	background: none;
+}
+
+.phone {
+	width: 100%;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+	height: 25px;
+	background: none;
+}
+
+.btnfind {
+	position: relative;
+	left: 40%;
+	transform: translateX(-50%);
+	margin-bottom: 20px;
+	width: 80%;
+	height: 40px;
+	background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
+	background-position: left;
+	background-size: 200%;
+	color: white;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	transition: 0.4s;
+	display: inline;
+}
+
+.alert-danger {
+	margin: 0px auto; margin-top : 60px;
+	width: 300px;
+	height: 80px;
+	text-align: center;
+	font-size: large;
+	line-height: 48px;
+	font-weight: bold;
+	margin-top: 60px;
+}
+
+.btnlogin:hover {
+	background-position: right;
+}
+
+.find_rel {
+	margin-top: 25px;
+	font-size: 14px;
+}

@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+#top_tit {
+	text-align : center;
+	border-top : 1px solid #dedede;
+	border-bottom : 1px solid #dedede;
+	margin-bottom : 10px;
+}
+
+#top_tit h3 {
+	font-weight : 700;
+	line-height: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.at-body {
+}
+.main_wrap {
+}
+.orderempty {
+	height : 200px;
+	font-size : 28px;
+}
+.ordertbl_wrap {
+	width : 100%;
+	/* min-height : 150px; */
+	margin-bottom : 40px;
+	display :flex;
+	justify-content: center;
+}
+.ordertbl {
+	border: 1px solid black;
+	border-right: 0px;
+    border-left: 0px;
+	width : 80%;
+	text-align : center;
+	font-family: "Noto Sans KR";
+}
+.order_tr_first{
+	border-bottom : 1px solid black;
+	height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+.order_tr {
+	height : 40px;
+	font-size : 15px;
+}
+
+.order_td {
+	height: 80px;
+}

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+
+	<resultMap id="productList" type="com.kh.shop.ProductVO">
+		<result property="productId" column="prod_id"/>
+		<result property="productName" column="prod_nm"/>
+		<result property="productPrice" column="prod_price"/>
+		<result property="productSalePrice" column="prod_sale_price"/>
+		<result property="productImg" column="file_path"/>
+		<result property="thumbImg" column="thumb_path"/>
+		<result property="productDescription" column="prod_desc"/>
+	</resultMap>
+	
+	<resultMap id="imageList" type="com.kh.shop.ImageVO">
+		<result property="productId" column="prod_id"/>
+		<result property="imagePath" column="file_path"/>
+	</resultMap>
+	
+	<resultMap id="detailImage" type="com.kh.shop.ImageVO">
+		<result property="productId" column="prod_id"/>
+		<result property="imagePath" column="file_path"/>
+	</resultMap>
+	
+	<resultMap id="productInfo" type="com.kh.shop.ProductSearchVO">
+		<result property="categoryId" column="cat_id"/>
+		<result property="productName" column="prod_nm"/>
+		<result property="thumbImg" column="thumb_path"/>
+		<result property="productDescription" column="prod_desc"/>
+	</resultMap>
+
+	<resultMap id="productColorSize" type="com.kh.shop.ColorSizeVO">
+		<result property="productId" column="prod_id"/>
+		<result property="colorName" column="color_nm"/>
+		<result property="sizeName" column="size_nm"/>
+	</resultMap>
+	
+	<resultMap id="cartList" type="com.kh.shop.CartVO">
+		<result property="productId" column="prod_id"/>
+		<result property="productName" column="prod_nm"/>
+		<result property="cartImg" column="cart_img"/>
+		<result property="productPrice" column="prod_price"/>
+		<result property="productSalePrice" column="prod_sale_price"/>
+		<result property="colorName" column="color_nm"/>
+		<result property="sizeName" column="size_nm"/>
+		<result property="qty" column="qty"/>		
+	</resultMap>
+	
+	<resultMap id="orderedList" type="com.kh.shop.OrderVO">
+		<result property="orderId" column="order_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="statusCode" column="status_cd"/>
+		<result property="totalPrice" column="tot_price"/>
+		<result property="totalQty" column="tot_qty"/>
+		<result property="deliveryFee" column="deliv_fee"/>
+		<result property="orderDate" column="order_dt"/>
+	</resultMap>
+	
+	<select id="selectProductList" parameterType="com.kh.shop.ProductSearchVO" resultMap="productList">
+		select distinct
+		       a.prod_id
+			 , a.prod_nm
+			 , a.prod_price	
+			 , a.prod_sale_price
+			 , a.sold_out_yn
+			 , b.file_path
+		from   kh_product a, kh_prod_img b
+		where  a.sold_out_yn = 'N'
+		and    a.prod_id = b.prod_id
+		and    b.img_id = (select min(c.img_id) from kh_prod_img c where c.prod_id = b.prod_id)
+
+		<if test="categoryId != null and categoryId != ''">
+			and    a.prod_id in (select b.prod_id from kh_prod_category b where b.cat_cd = #{categoryId})   
+		</if>
+		
+		<if test="productName != null and productName != ''">
+			and    a.prod_nm like concat ('%', #{productName},'%')
+		</if>
+		
+		ORDER BY prod_id
+	</select>	
+	<select id="selectOrderList" parameterType="com.kh.shop.OrderVO" resultMap="orderedList">
+		select distinct
+			   a.order_id
+			  ,a.user_id
+			  ,a.status_cd
+			  ,a.tot_price
+			  ,a.tot_qty
+			  ,a.deliv_fee
+			  ,a.order_dt
+		from  kh_order a
+		where a.user_id = #{userId}
+	</select>
+	
+	<select id="selectProductInfo" parameterType="com.kh.shop.ProductSearchVO" resultMap="productList">
+		select prod_id
+			 , prod_nm
+			 , prod_price
+			 , prod_sale_price
+			 , sold_out_yn
+			 , prod_desc
+			 , (select file_path
+					from   kh_prod_img b
+					where  (file_path like '%#_01.jpg' escape '#' 
+					and b.prod_id = #{productId})) 
+					as thumb_path
+		from   kh_product a
+		where  prod_id = #{productId}
+	</select>	
+	
+	<select id="nextCartId" parameterType="int" resultType="int">
+		select ifnull(max(cart_id), 0) + 1 as next_cart_id 
+		from   kh_cart
+	</select>
+	
+	<select id="selectProductImage" parameterType="com.kh.shop.ProductSearchVO" resultMap="imageList">
+		select prod_id
+			 , file_path
+		from   kh_prod_img a
+		where  prod_id = #{productId}
+		and	   file_path like '%detail%'
+		order by sort_ord
+	</select>	
+	
+	<!-- <select id="selectDetailImage" parameterType="com.kh.shop.ProductSearchVO" resultMap="detailImage">
+		select file_path
+			 , min(sort_ord) as sort_ord
+		from   kh_prod_img a
+		where  (file_path like '%detail%' and prod_id = #{productId})
+	</select>	 -->
+	
+	<select id="selectCategoryName" parameterType="com.kh.shop.ProductSearchVO" resultMap="productList">
+		select max(cat_nm) as cat_nm
+		from   kh_category_cd a
+		where  cat_cd  = #{categoryId}
+	</select>	
+	
+	<select id="selectColor" parameterType="com.kh.shop.ColorSizeVO" resultMap="productColorSize" >
+		select distinct 
+			   a.prod_id
+			  ,color_nm
+		from   kh_prod_color a, kh_product b
+		where  a.prod_id = #{productId}
+	</select>
+	
+	<select id="selectSize" parameterType="com.kh.shop.ColorSizeVO" resultMap="productColorSize" >
+		select distinct a.prod_id
+				       ,b.cat_cd
+					   ,c.color_nm
+					   ,c.size_cd
+					   ,b.size_nm
+				  from kh_prod_category a, kh_size_cd b, kh_prod_color_size c
+				 where c.prod_id = a.prod_id
+		           and c.prod_id = #{productId}
+				   and a.cat_cd = b.cat_cd
+				   and c.color_nm = #{colorName}
+		           and c.size_cd = b.size_cd
+			  order by size_cd;
+	</select>
+	<select id="getSize" parameterType="com.kh.shop.ColorSizeVO" resultMap="productColorSize" >
+		select size_cd from kh_prod_color_size where prod_id=#{productId};
+	</select>
+	
+	
+	<select id="selectCartList" parameterType="com.kh.shop.CartVO" resultMap="cartList" >
+		select distinct
+			   uuid
+			  ,prod_id 
+		      ,cart_img
+			  ,prod_nm
+		      ,prod_price
+		      ,prod_sale_price
+		      ,color_nm
+		      ,size_nm
+		      ,qty
+		from  kh_cart 
+		where user_id = #{userId}
+		
+		
+	</select>
+<!-- 	<select id="selectCartList" parameterType="com.kh.shop.CartVO" resultMap="cartList" >
+		select distinct
+			   uuid
+			  ,b.prod_id 
+		      ,cart_img
+			  ,b.prod_nm
+		      ,b.prod_price
+		      ,b.prod_sale_price
+		      ,b.color_nm
+		      ,d.size_nm
+		      ,b.qty
+		from  kh_product a, kh_cart b, kh_prod_color_size c, kh_size_cd d
+		where a.prod_id = b.prod_id
+		and   b.user_id = #{userId}
+		and   c.size_cd = d.size_cd
+		and   d.size_nm = b.size_nm		
+		
+	</select> -->
+	
+	
+	<insert id="cartAdd" parameterType="com.kh.shop.CartVO">
+		insert into kh_cart (uuid
+							,user_id
+							,prod_id
+							,cart_img
+							,prod_nm
+							,color_nm
+							,size_nm
+							,prod_price
+							,prod_sale_price
+							,qty
+							,validity
+							)
+					values  (#{uuId}
+							,#{userId}
+						    ,#{productId}
+						    ,#{cartImg}
+						    ,#{productName}
+						    ,#{colorName}
+						    ,#{sizeName}
+						    ,#{productPrice}	
+						    ,#{productSalePrice}	
+						    ,#{qty}
+						    ,1
+						    )	
+	</insert>
+	<insert id="orderAdd" parameterType="com.kh.shop.OrderVO">
+		insert into kh_order (order_id
+						 	 ,user_id
+							 ,status_cd
+							 ,tot_price
+							 ,tot_qty
+							 ,deliv_fee
+							 ,order_dt
+							 )
+					values   (#{orderId}
+							 ,#{userId}
+						     ,1
+						     ,#{totalPrice}
+						     ,#{totalQty}
+						     ,#{deliveryFee}
+						     ,#{orderDate}						    
+						     )	
+	</insert>
+	<delete id="cartDrop" parameterType="com.kh.shop.CartVO" >
+		delete from kh_cart where uuid = #{uuId}
+	</delete>
+</mapper>	

@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+.at-body {
+	-ms-overflow-style: none !important; /* IE and Edge */
+	scrollbar-width: none !important; /* Firefox */
+}
+
+.at-body::-webkit-scrollbar {
+	display: none !important; /* Chrome, Safari, Opera*/
+}
+
+.at-footer {
+	display: none !important;
+}
+
+.loginForm {
+	position: absolute !important;
+	width: 300px !important;
+	height: 400px !important;
+	padding: 30px, 20px !important;
+	background-color: #FFFFFF !important;
+	text-align: center !important;
+	margin-top: 320px;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	border-radius: 15px !important;
+	-ms-overflow-style: none !important; /* IE and Edge */
+	scrollbar-width: none !important; /* Firefox */
+	font-size: 20px;
+}
+
+@media all and (max-height:900px) {
+	.loginForm { margin-top: 270px; }
+}
+
+@media all and (max-height:750px) {
+	.loginForm { margin-top: 220px; }
+}
+
+@media all and (max-height:670px) {
+	.loginForm { margin-top: 170px; }
+	.login_title { font-size: 30px; }
+	.id { font-size: 16px; }
+	.pw { font-size: 16px; }
+	.btnlogin { font-size: 14px; }
+}
+
+    @media all and (max-width:991px) {
+      .loginForm { margin-top: 250px; }
+    }
+    @media all and (max-width:420px) {
+      .loginForm { margin-top: 150px; }
+    }
+
+.loginForm::-webkit-scrollbar {
+	display: none !important; /* Chrome, Safari, Opera*/
+}
+
+.login_title {
+	text-align: center;
+	margin: 30px;
+	font-family: "Noto Sans KR", sans-serif;
+	font-size: 30px;
+	font-weight: 500;
+	line-height: 1.1;
+	color: inherit;
+}
+
+.idForm {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	padding: 10px 10px;
+}
+
+.passForm {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	padding: 10px 10px;
+}
+
+.id {
+	width: 100%;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+	height: 25px;
+	background: none;
+}
+
+.pw {
+	width: 100%;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+	height: 25px;
+	background: none;
+}
+
+#btnLogin {
+	position: relative;
+    left: 40%;
+    transform: translateX(-50%);
+    margin-bottom: 20px;
+    width: 80%;
+    height: 40px;
+    background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
+    background-position: left;
+    background-size: 200%;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.4s;
+    display: inline;
+}
+.alert-danger {
+	margin-top: 60px;
+	width: 300px;
+	height: 80px;
+	text-align: center;
+	font-size: large;
+	line-height: 48px;
+}
+
+.btnlogin:hover {
+	background-position: right;
+}
+
+.login_rel {
+	margin-top: 25px;
+	font-size: 14px;
+}

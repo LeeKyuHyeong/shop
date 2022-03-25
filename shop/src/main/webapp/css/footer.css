@@ -1,0 +1,117 @@
+/* BASIC css start */
+.footer {
+	position: relative;
+	border-top: 1px solid #ddd;
+}
+
+.footer .container {
+	width: 100%;
+	margin: 5px;
+}
+
+.footer .inner {
+	margin: 10px;
+	padding-top: 44px;
+}
+
+.footer .footer-top {
+	font-size: 0px;
+	padding-bottom: 55px;
+	border-bottom: 1px solid #ddd;
+}
+
+.footer .footer-top .inner>ul>li {
+	display: inline-block;
+	width: 33.3333%;
+	vertical-align: top;
+}
+
+.footer .footer-top .inner>ul>li h3 {
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+.footer .footer-top .inner>ul>li h4 {
+	line-height: 49px;
+	color: #333;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.footer .footer-top .inner>ul>li p {
+	line-height: 21px;
+	color: #999;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.footer .footer-top .inner>ul>li>ul.bank-account {
+	margin-right: 54px;
+}
+
+.footer .footer-top .inner>ul>li>ul.bank-account>li {
+	line-height: 28px;
+	color: #999;
+	font-size: 13px;
+}
+
+.footer .footer-top .inner>ul>li p.etc-p {
+	line-height: 31px;
+	margin-bottom: 10px;
+	color: #d15460;
+	font-size: 13px;
+}
+
+.footer-bottom {
+	padding-bottom: 33px;
+}
+
+.footer-bottom .inner {
+	position: relative;
+}
+
+.footer-bottom .etc-menu {
+	position: realtive;
+	margin-bottom: 21px;
+}
+
+.footer-bottom .etc-menu ul li {
+	line-height: 24px;
+	display: inline-block;
+	margin-right: 40px;
+}
+
+.footer-bottom .etc-menu ul li a {
+	color: #999;
+	font-size: 13px;
+}
+
+.footer-bottom .etc-menu ul li a.bold {
+	color: #333;
+	font-weight: normal;
+}
+
+.footer-bottom .address p {
+	line-height: 23px;
+	color: #999;
+	font-size: 14px;
+}
+
+.footer-bottom .address p a {
+	line-height: 23px;
+	color: #999;
+	font-size: 12px;
+}
+
+.copyright {
+	margin-top: 20px;
+}
+
+.copyright p {
+	font-size: 12px;
+	color: #999;
+}
+/* BASIC css end */

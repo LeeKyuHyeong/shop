@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<resultMap id="userInfo" type="com.kh.shop.UserVO">
+		<result property="userId" column="user_id"/>
+		<result property="loginId" column="login_id"/>
+		<result property="loginPwd" column="login_pwd"/>
+		<result property="userName" column="user_nm"/>
+		<result property="userBirthDay" column="user_birth" />
+		<result property="userPhone" column="user_phone" />
+		<result property="userEmail" column="user_email" />
+	</resultMap>
+	
+	<resultMap id="findInfo" type="com.kh.shop.FindVO">
+		<result property="loginId" column="login_id"/>
+		<result property="loginPwd" column="login_pwd"/>
+		<result property="userName" column="user_nm"/>
+		<result property="userPhone" column="user_phone" />
+	</resultMap>
+
+	<select id="selectUserInfo" parameterType="com.kh.shop.UserVO" resultMap="userInfo">
+		select user_id
+			 , login_id
+			 , login_pwd
+			 , user_nm
+			 , user_birth
+			 , user_phone
+			 , user_email
+		from   kh_user a		
+		where  use_yn = 'Y'
+		and	   login_id = #{loginId}
+	</select>
+	<select id="selectOrderUser" parameterType="com.kh.shop.UserVO" resultMap="userInfo">
+		select user_id
+			 , login_id
+			 , login_pwd
+			 , user_nm
+			 , user_birth
+			 , user_phone
+			 , user_email
+		from   kh_user a		
+		where  use_yn = 'Y'
+		and	   user_id = #{userId}
+	</select>
+	
+	<select id="login_check" resultType="String">
+		select user_nm
+		from   kh_user a
+		where  login_id=#{loginId}
+		and    login_pwd=#{loginPwd}
+	</select>
+	
+	<select id="nextUserId" parameterType="String" resultType="String">
+		select lpad(cast(ifnull(max(user_id), '0') as unsigned) + 1, 5, '0') as next_user_id 
+		from   kh_user
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType = "int">
+		select count(*)
+		from   kh_user
+		where  login_id = #{loginId}
+	</select>
+	
+	<select id="findId" resultType="String">
+		select ifnull(login_id, 0)
+		from   kh_user 
+		where  user_nm=#{userName} 
+		and    user_phone=#{userPhone}
+		and    use_yn = 'Y'
+	</select>
+	
+	<select id="findPwd" resultType="String">
+		select login_pwd
+		from   kh_user
+		where  login_id=#{loginId}
+		and    user_nm=#{userName}
+		and    user_phone=#{userPhone}
+		and    use_yn = 'Y'
+	</select>
+	
+	<update id="updatePassword">
+		update kh_user
+		set    login_pwd=#{loginPwd}
+		where  login_id=#{loginId}
+	</update>
+	
+	<insert id="signUp" parameterType="com.kh.shop.UserVO">
+		insert into kh_user (user_id
+							,login_id
+							,login_pwd
+							,user_nm
+							,user_birth
+							,user_phone
+							,user_email
+							,use_yn
+							,reg_dt
+							)
+					values  (#{userId}
+						    ,#{loginId}
+						    ,#{loginPwd}
+						    ,#{userName}
+						    ,#{userBirthDay}
+						    ,#{userPhone}
+						    ,#{userEmail}	
+						    ,'Y'	
+						    ,date_format(now(),'%Y%m%d%H%i%s')
+						    )	
+	</insert>
+	<insert id="addOrderProd" parameterType="com.kh.shop.OrderProdVO">
+		insert into kh_order_prod (order_id
+								  ,prod_id
+								  ,prod_nm
+								  ,price
+								  ,qty
+								  )
+						  values (#{orderId}
+							     ,#{productId}
+							     ,#{productName}
+							     ,#{productSalePrice}
+							     ,#{qty}
+							     )	
+	</insert>
+	<insert id="addOrder" parameterType="com.kh.shop.OrderVO">
+		insert into kh_order (order_id
+							 ,user_id
+							 ,status_cd
+							 ,tot_price
+							 ,tot_qty
+							 ,deliv_fee
+							 ,order_dt
+							 )
+					 values (#{orderId}
+						    ,#{userId}
+						    ,'1'
+						    ,#{totalPrice}
+						    ,#{totalQty}
+						    ,#{deliveryFee}
+						    ,#{orderDate}
+						    )	
+	</insert>
+</mapper>
